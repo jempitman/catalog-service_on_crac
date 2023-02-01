@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("books")
 public class BookController {
     private final BookService bookService;
 
@@ -16,7 +16,7 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public Iterable<Book> get(){
         return bookService.viewBookList();
     }
