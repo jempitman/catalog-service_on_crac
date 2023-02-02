@@ -10,6 +10,12 @@ server:
 polar:
   greeting: Welcome to the local book catalog
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+
 spring:
   application:
     name: catalog-service
