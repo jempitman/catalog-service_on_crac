@@ -21,8 +21,8 @@ public class BookJsonTests {
         var now = Instant.now();
         var book = new Book(394L, "1234567890", "Title", "Author", 9.90, now, now,  21);
         var jsonContent = json.write(book);
-        assertThat(jsonContent).extractingJsonPathStringValue("@.id")
-                .isEqualTo(book.isbn());
+        assertThat(jsonContent).extractingJsonPathNumberValue("@.id")
+                .isEqualTo(book.id().intValue());
         assertThat(jsonContent).extractingJsonPathStringValue("@.isbn")
                 .isEqualTo(book.isbn());
         assertThat(jsonContent).extractingJsonPathStringValue("@.title")
@@ -31,6 +31,8 @@ public class BookJsonTests {
                 .isEqualTo(book.author());
         assertThat(jsonContent).extractingJsonPathNumberValue("@.price")
                 .isEqualTo(book.price());
+        assertThat(jsonContent).extractingJsonPathStringValue("@.createdDate")
+                .isEqualTo(book.createdDate().toString());
         assertThat(jsonContent).extractingJsonPathStringValue("@.lastModifiedDate")
                 .isEqualTo(book.lastModifiedDate().toString());
         assertThat(jsonContent).extractingJsonPathNumberValue("@.version")
