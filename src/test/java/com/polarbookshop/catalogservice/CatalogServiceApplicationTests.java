@@ -131,12 +131,14 @@ class CatalogServiceApplicationTests {
 	}
 
 	@Test
-	void whenPutRequestThenBookUpdated() {
-		var bookIsbn = "1231231232";
+	void whenPutRequestAuthorizedThenBookUpdated() {
+		var bookIsbn = "1231231231";
 		var bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarsophia");
 		Book createdBook = webTestClient
 				.post()
 				.uri("/books")
+				.headers(headers ->
+						headers.setBearerAuth(isabelleTokens.accessToken()))
 				.bodyValue(bookToCreate)
 				.exchange()
 				.expectStatus().isCreated()
@@ -148,6 +150,8 @@ class CatalogServiceApplicationTests {
 		webTestClient
 				.put()
 				.uri("/books/" + bookIsbn)
+				.headers(headers ->
+						headers.setBearerAuth(isabelleTokens.accessToken()))
 				.bodyValue(bookToUpdate)
 				.exchange()
 				.expectStatus().isOk()
@@ -158,12 +162,14 @@ class CatalogServiceApplicationTests {
 	}
 
 	@Test
-	void whenDeleteRequestThenBookDeleted() {
+	void whenDeleteRequestAuthorizedThenBookDeleted() {
 		var bookIsbn = "1231231233";
 		var bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarsophia");
 		webTestClient
 				.post()
 				.uri("/books")
+				.headers(headers ->
+						headers.setBearerAuth(isabelleTokens.accessToken()))
 				.bodyValue(bookToCreate)
 				.exchange()
 				.expectStatus().isCreated();
@@ -171,6 +177,8 @@ class CatalogServiceApplicationTests {
 		webTestClient
 				.delete()
 				.uri("/books/" + bookIsbn)
+				.headers(headers ->
+						headers.setBearerAuth(isabelleTokens.accessToken()))
 				.exchange()
 				.expectStatus().isNoContent();
 
