@@ -27,7 +27,7 @@ public class BookControllerMvcTests {
     private MockMvc mockMvc;
 
     @Autowired
-    private JwtDecoder jwtDecoder;
+    JwtDecoder jwtDecoder;
 
 
     @MockBean
@@ -63,5 +63,12 @@ public class BookControllerMvcTests {
                 .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
 
+    @Test
+    void whenDeleteBookNotAuthorizedThenShouldReturn401() throws Exception {
+        var isbn = "7373731394";
+        mockMvc
+                .perform(MockMvcRequestBuilders.delete("/books/" +isbn))
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
+    }
 
 }
