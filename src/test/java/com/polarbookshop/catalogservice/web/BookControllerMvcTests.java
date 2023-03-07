@@ -35,7 +35,7 @@ public class BookControllerMvcTests {
 
     @Test
     void whenGetBookNotExistingThenShouldReturn404() throws Exception {
-        String isbn = "73737313940";
+        String isbn = "7373731394";
         given(bookService.viewBookDetails(isbn))
                 .willThrow(BookNotFoundException.class);
         mockMvc
@@ -45,12 +45,22 @@ public class BookControllerMvcTests {
 
     @Test
     void whenDeleteBooksWithEmployeeRoleThenShouldReturn204() throws Exception{
-        var isbn = "73737313940";
+        var isbn = "7373731394";
         mockMvc
                 .perform(MockMvcRequestBuilders.delete("/books/" +isbn)
                         .with(SecurityMockMvcRequestPostProcessors.jwt()
                                 .authorities(new SimpleGrantedAuthority("ROLE_employee"))))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    @Test
+    void whenDeleteBookWithCustomerRoleThenShouldReturn403() throws Exception{
+        var isbn = "7373731394";
+        mockMvc
+                .perform(MockMvcRequestBuilders.delete("/books/" +isbn)
+                        .with(SecurityMockMvcRequestPostProcessors.jwt()
+                                .authorities(new SimpleGrantedAuthority("ROLE_customer"))))
+                .andExpect(MockMvcResultMatchers.status().isForbidden());
     }
 
 
