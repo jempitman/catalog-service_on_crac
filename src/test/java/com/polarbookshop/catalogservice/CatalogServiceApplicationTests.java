@@ -131,6 +131,28 @@ class CatalogServiceApplicationTests {
 	}
 
 	@Test
+	void whenPostRequestUnauthorizedThen403() {
+		var expectedBook = Book.of("1231231231", "Title", "Author", 9.90, "Polarsophia");
+
+		webTestClient.post().uri("/books")
+				.headers(headers ->
+						headers.setBearerAuth(bjornTokens.accessToken()))
+				.bodyValue(expectedBook)
+				.exchange()
+				.expectStatus().isForbidden();
+	}
+
+	@Test
+	void whenPostRequestUnauthenticatedThen401() {
+		var expectedBook = Book.of("1231231231", "Title", "Author", 9.90, "Polarsophia");
+
+		webTestClient.post().uri("/books")
+				.bodyValue(expectedBook)
+				.exchange()
+				.expectStatus().isUnauthorized();
+	}
+
+	@Test
 	void whenPutRequestAuthorizedThenBookUpdated() {
 		var bookIsbn = "1231231231";
 		var bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarsophia");
