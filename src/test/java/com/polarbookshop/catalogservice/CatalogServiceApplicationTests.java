@@ -94,6 +94,8 @@ class CatalogServiceApplicationTests {
 		Book expectedBook = webTestClient
 				.post()
 				.uri("/books")
+				.headers(headers ->
+						headers.setBearerAuth(isabelleTokens.accessToken()))
 				.bodyValue(bookToCreate)
 				.exchange()
 				.expectStatus().isCreated()
@@ -154,7 +156,7 @@ class CatalogServiceApplicationTests {
 
 	@Test
 	void whenPutRequestAuthorizedThenBookUpdated() {
-		var bookIsbn = "1231231231";
+		var bookIsbn = "1231231232";
 		var bookToCreate = Book.of(bookIsbn, "Title", "Author", 9.90, "Polarsophia");
 		Book createdBook = webTestClient
 				.post()
