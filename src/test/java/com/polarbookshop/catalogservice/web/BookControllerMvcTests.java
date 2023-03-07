@@ -19,7 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -137,6 +136,44 @@ public class BookControllerMvcTests {
         given(bookService.addBookToCatalog(bookToCreate)).willReturn(bookToCreate);
         mockMvc
                 .perform(MockMvcRequestBuilders.post("/books")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(bookToCreate)))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void whenPutBookWithEmployeeRoleThenShouldReturn201() throws Exception {
+        var isbn = "7373731394";
+        var bookToCreate = Book.of(isbn, "Title", "Author", 9.90, "Polarsophia");
+        given(bookService.addBookToCatalog(bookToCreate)).willReturn(bookToCreate);
+        mockMvc
+                .perform(MockMvcRequestBuilders.put("/books/" + isbn)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(bookToCreate))
+                        .with(jwt().authorities(new SimpleGrantedAuthority(ROLE_EMPLOYEE))))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void whenPutBookWithEmployeeRoleThenShouldReturn403() throws Exception {
+        var isbn = "7373731394";
+        var bookToCreate = Book.of(isbn, "Title", "Author", 9.90, "Polarsophia");
+        given(bookService.addBookToCatalog(bookToCreate)).willReturn(bookToCreate);
+        mockMvc
+                .perform(MockMvcRequestBuilders.put("/books/" + isbn)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(bookToCreate))
+                        .with(jwt().authorities(new SimpleGrantedAuthority(ROLE_CUSTOMER))))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void whenPutBookWithEmployeeRoleThenShouldReturn401() throws Exception {
+        var isbn = "7373731394";
+        var bookToCreate = Book.of(isbn, "Title", "Author", 9.90, "Polarsophia");
+        given(bookService.addBookToCatalog(bookToCreate)).willReturn(bookToCreate);
+        mockMvc
+                .perform(MockMvcRequestBuilders.put("/books/" + isbn)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(bookToCreate)))
                 .andExpect(status().isUnauthorized());
