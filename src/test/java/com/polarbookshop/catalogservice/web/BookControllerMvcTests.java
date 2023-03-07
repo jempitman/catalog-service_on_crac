@@ -68,7 +68,7 @@ public class BookControllerMvcTests {
         var isbn = "7373731394";
         mockMvc
                 .perform(MockMvcRequestBuilders.delete("/books/" +isbn))
-                .andExpect(MockMvcResultMatchers.status().isForbidden());
+                .andExpect(MockMvcResultMatchers.status().isUnauthorized());
     }
 
 }
