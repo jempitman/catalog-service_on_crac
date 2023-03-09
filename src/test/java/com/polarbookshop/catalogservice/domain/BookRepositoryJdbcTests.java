@@ -53,5 +53,11 @@ public class BookRepositoryJdbcTests {
                 .collect(Collectors.toList())).hasSize(2);
     }
 
+    @Test
+    void whenCreateBookNotAuthenticatedThenNoAuditMetadata(){
+        boolean existing = bookRepository.existsByIsbn("1234561240");
+        assertThat(existing).isFalse();
+    }
+
 
 }
