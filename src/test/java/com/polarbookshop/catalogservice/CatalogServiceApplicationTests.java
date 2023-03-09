@@ -33,7 +33,7 @@ class CatalogServiceApplicationTests {
 	@BeforeAll
 	static void generateAccessTokens(){
 		WebClient webClient = WebClient.builder()
-				.baseUrl(keyCloakContainer.getAuthServerUrl()
+				.baseUrl(keycloakContainer.getAuthServerUrl()
 				+ "realms/PolarBookshop/protocol/openid-connect/token")
 				.defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 				.build();
@@ -77,14 +77,14 @@ class CatalogServiceApplicationTests {
 	private WebTestClient webTestClient;
 
 	@Container
-	private static final KeycloakContainer keyCloakContainer =
+	private static final KeycloakContainer keycloakContainer =
 			new KeycloakContainer("quay.io/keycloak/keycloak:19.0")
 				.withRealmImportFile("test-realm-config.json");
 
 	@DynamicPropertySource
 	static void dynamicProperties(DynamicPropertyRegistry registry){
 		registry.add("spring.security.oauth2.resourceserver.jwt.issuer-uri",
-				() -> keyCloakContainer.getAuthServerUrl() + "realms/PolarBookshop");
+				() -> keycloakContainer.getAuthServerUrl() + "realms/PolarBookshop");
 	}
 
 	@Test
@@ -168,8 +168,10 @@ class CatalogServiceApplicationTests {
 				.expectStatus().isCreated()
 				.expectBody(Book.class).value(book -> assertThat(book).isNotNull())
 				.returnResult().getResponseBody();
-		var bookToUpdate = new Book(createdBook.id(), createdBook.isbn(), createdBook.title(), createdBook.author(), 7.95,
-				createdBook.publisher(), createdBook.createdDate(), createdBook.lastModifiedDate(), createdBook.version());
+		var bookToUpdate = new Book(createdBook.id(), createdBook.isbn(), createdBook.title(),
+				createdBook.author(), 7.95, createdBook.publisher(), createdBook.createdDate(),
+				createdBook.lastModifiedDate(), createdBook.createdBy(), createdBook.lastModifiedBy(),
+				createdBook.version());
 
 		webTestClient
 				.put()
