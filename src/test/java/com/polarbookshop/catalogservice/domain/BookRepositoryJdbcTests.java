@@ -54,10 +54,18 @@ public class BookRepositoryJdbcTests {
     }
 
     @Test
-    void whenCreateBookNotAuthenticatedThenNoAuditMetadata(){
+    void existsByIsbnWhenNotExisting(){
         boolean existing = bookRepository.existsByIsbn("1234561240");
         assertThat(existing).isFalse();
     }
 
+    @Test
+    void whenCreateBookNotAuthenticatedThenNoAuditMetadata(){
+        var bookToCreate = Book.of("1234561235", "Title",
+                "Author", 12.90, "Polarsophia");
+        var createdBook = bookRepository.save(bookToCreate);
 
+        assertThat(createdBook.createdBy()).isNull();
+        assertThat(createdBook.lastModifiedBy()).isNull();
+    }
 }
