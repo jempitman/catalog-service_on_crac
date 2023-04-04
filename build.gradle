@@ -20,6 +20,10 @@ repositories {
 	mavenCentral()
 }
 
+springBoot {
+	buildInfo()
+}
+
 
 ext{
 	set('springCloudVersion', "2021.0.3")
