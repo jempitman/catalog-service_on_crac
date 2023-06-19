@@ -3,7 +3,7 @@ on: push
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: jempitman/catalog-service
+  IMAGE_NAME: jempitman/catalog-service_on_crac
   VERSION: ${{ github.sha }}
 
 jobs:
