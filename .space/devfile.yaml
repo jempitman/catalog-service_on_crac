@@ -1,0 +1,17 @@
+schemaVersion: 2.2.0
+attributes:
+  space:
+    instanceType: regular
+    editor:
+      type: Idea
+components:
+- name: image-build
+  image:
+    # (Required)
+    imageName: catalog-service_on_crac:latest
+    dockerfile:
+      # path to Docker context relative to projectRoot
+      # by default, projectRoot is repository root
+      buildContext: ./
+      # (Required) path to Dockerfile relative to projectRoot
+      uri: ./Dockerfile
