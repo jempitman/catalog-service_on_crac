@@ -21,4 +21,4 @@ attributes:
 components:
   - name: jetbrains-reg
     container:
-      image: ubiquitech.registry.jetbrains.space/p/first-project/crac-reg:latest
+      image: ubiquitech.registry.jetbrains.space/p/first-project/jetbrain-reg
