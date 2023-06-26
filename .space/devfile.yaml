@@ -4,6 +4,9 @@ attributes:
     instanceType: large
     editor:
       type: Idea
+    # warmup:
+    #   script:
+    #     ./gradlew clean build
 # components:
 #   - name: image-build
 #     image:
@@ -19,6 +22,6 @@ attributes:
 #           - 'ARG2=B'
 
 components:
-  - name: jetbrains-reg
+  - name: crac-env
     container:
-      image: ubiquitech.registry.jetbrains.space/p/first-project/jetbrain-reg/jetbrains_dev:latest
+      image: ubiquitech.registry.jetbrains.space/p/first-project/crac-reg/crac-env:latest
