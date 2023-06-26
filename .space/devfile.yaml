@@ -19,6 +19,6 @@ attributes:
 #           - 'ARG2=B'
 
 components:
-  - name: jetbrain-reg
+  - name: jetbrains-reg
     container:
       image: ubiquitech.registry.jetbrains.space/p/first-project/jetbrain-reg:latest
