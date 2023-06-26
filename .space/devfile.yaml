@@ -4,16 +4,21 @@ attributes:
     instanceType: large
     editor:
       type: Idea
+# components:
+#   - name: image-build
+#     image:
+#       imageName: my-image:latest
+#       dockerfile:
+#         # (Required) path to Dockerfile relative to projectRoot
+#         buildContext: docker
+#         # (Optional) path to Docker context relative to projectRoot
+#         # by default, projectRoot is repository root
+#         uri: docker/Dockerfile
+#         args:
+#           - 'ARG1=A'
+#           - 'ARG2=B'
+
 components:
-  - name: image-build
-    image:
-      imageName: my-image:latest
-      dockerfile:
-        # (Required) path to Dockerfile relative to projectRoot
-        buildContext: docker
-        # (Optional) path to Docker context relative to projectRoot
-        # by default, projectRoot is repository root
-        uri: docker/Dockerfile
-        args:
-          - 'ARG1=A'
-          - 'ARG2=B'
+  - name: ubuntu-container
+    container:
+      image: ubiquitech.registry.jetbrains.space/p/first-project/jetbrain-reg:latest
