@@ -37,7 +37,7 @@ info:
 
 spring:
   application:
-    name: catalog-service
+    name: catalog-service_on_crac
   config:
     import: ""
   cloud:
