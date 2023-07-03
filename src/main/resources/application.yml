@@ -77,5 +77,5 @@ logging:
   level:
     com:
       zaxxer:
-        hikari:
-          HikariConfig: debug
+        hikari: debug
+#          HikariConfig: debug
