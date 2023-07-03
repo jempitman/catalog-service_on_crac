@@ -26,4 +26,4 @@ attributes:
 components:
   - name: crac-env
     container:
-      image: jempitman/crac_env:latest
+      image: ubiquitech.registry.jetbrains.space/p/first-project/crac-env/crac-env:latest
