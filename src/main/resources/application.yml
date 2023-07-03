@@ -56,14 +56,14 @@ spring:
     allow-bean-definition-overriding: true
 #  main:
 #    allow-bean-definition-overriding=true
-  datasource:
-    username: user
-    password: password
-    url: jdbc:postgresql://localhost:5432/polardb_catalog
-    hikari:
-      connection-timeout: 2000
-      maximum-pool-size: 5
-      allow-pool-suspension: on
+#  datasource:
+#    username: user
+#    password: password
+#    url: jdbc:postgresql://localhost:5432/polardb_catalog
+#    hikari:
+#      connection-timeout: 2000
+#      maximum-pool-size: 5
+#      allow-pool-suspension: on
   security:
     oauth2:
       resourceserver:
@@ -77,4 +77,5 @@ logging:
   level:
     com:
       zaxxer:
-        hikari: debug, info
+        hikari:
+          HikariConfig: debug
