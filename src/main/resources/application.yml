@@ -75,7 +75,13 @@ logging:
   pattern:
     level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
   level:
-    com:
-      zaxxer:
-        hikari: debug
+#    com:
+#      zaxxer:
+#        hikari: debug
 #          HikariConfig: debug
+    org:
+      springframework:
+        security: debug
+#        context:
+#          support:
+#            DefaultLifecycleProcessor: debug
