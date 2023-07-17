@@ -43,6 +43,7 @@ public class DataSourceConfig implements Resource {
 
     @Override
     public void afterRestore(Context<? extends Resource> context) throws Exception {
+        System.out.println("afterRestore() called in DataSourceConfig");
         DelegatingDataSource dataSource = this.dataSource();
         dataSource.setTargetDataSource(setupNewDataSource());
     }
